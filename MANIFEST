@@ -21,6 +21,7 @@ lib/Sys/RevoBackup/Plugin/Zabbix.pm
 lib/Sys/RevoBackup/Utils.pm
 lib/Sys/RevoBackup/Worker.pm
 t/00-load.t
+t/01-job-filter.t
 t/manifest.t
 t/pod-coverage.t
 t/pod.t

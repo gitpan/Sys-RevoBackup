@@ -3,11 +3,13 @@ abstract: 'an rsync-based backup script'
 author:
   - 'Dominik Schulz <dominik.schulz@gauner.org>'
 build_requires:
+  File::Temp: 0
+  Test::MockObject::Universal: 0
   Test::More: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300028, CPAN::Meta::Converter version 2.120921'
+generated_by: 'Dist::Zilla version 4.300039, CPAN::Meta::Converter version 2.132661'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -27,7 +29,7 @@ requires:
   Moose: 0
   MooseX::App::Cmd: 0
   MooseX::App::Cmd::Command: 0
-  Sys::Bprsync: 0
+  Sys::Bprsync: 0.17
   Sys::Bprsync::Job: 0
   Sys::Bprsync::Worker: 0
   Sys::FS: 0
@@ -45,5 +47,5 @@ requires:
 resources:
   bugtracker: https://github.com/gittex/Sys-RevoBackup/issues
   repository: git://github.com/gittex/Sys-RevoBackup.git
-version: 0.16
+version: 0.24
 x_authority: cpan:TEX

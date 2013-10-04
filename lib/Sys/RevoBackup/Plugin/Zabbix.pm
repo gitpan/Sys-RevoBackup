@@ -1,11 +1,11 @@
 package Sys::RevoBackup::Plugin::Zabbix;
 {
-  $Sys::RevoBackup::Plugin::Zabbix::VERSION = '0.16';
+  $Sys::RevoBackup::Plugin::Zabbix::VERSION = '0.24';
 }
 BEGIN {
   $Sys::RevoBackup::Plugin::Zabbix::AUTHORITY = 'cpan:TEX';
 }
-# ABSTRACT: recobackup plugin for Zabbix::Sender
+# ABSTRACT: revobackup plugin for Zabbix::Sender
 
 use 5.010_000;
 use mro 'c3';
@@ -90,7 +90,7 @@ __END__
 
 =head1 NAME
 
-Sys::RevoBackup::Plugin::Zabbix - recobackup plugin for Zabbix::Sender
+Sys::RevoBackup::Plugin::Zabbix - revobackup plugin for Zabbix::Sender
 
 =head1 METHODS
 

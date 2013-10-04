@@ -1,6 +1,6 @@
 package Sys::RevoBackup;
 {
-  $Sys::RevoBackup::VERSION = '0.16';
+  $Sys::RevoBackup::VERSION = '0.24';
 }
 BEGIN {
   $Sys::RevoBackup::AUTHORITY = 'cpan:TEX';
@@ -24,7 +24,7 @@ use Sys::Run;
 use Job::Manager;
 use Sys::RevoBackup::Job;
 
-extends 'Sys::Bprsync';
+extends 'Sys::Bprsync' => { -version => 0.17 };
 
 has 'bank' => (
     'is'       => 'ro',
@@ -37,6 +37,12 @@ has 'sys' => (
     'isa'     => 'Sys::Run',
     'lazy'    => 1,
     'builder' => '_init_sys',
+);
+
+has 'job_filter' => (
+  'is'      => 'rw',
+  'isa'     => 'Str',
+  'default' => '',
 );
 
 with qw(Config::Yak::OrderedPlugins);
@@ -68,7 +74,12 @@ sub _init_jobs {
     my $verbose = $self->config()->get( $self->config_prefix() . '::Verbose' ) ? 1 : 0;
     my $dry     = $self->config()->get( $self->config_prefix() . '::Dry' )     ? 1 : 0;
 
-    foreach my $job_name ( @{$self->vaults()} ) {
+    VAULT: foreach my $job_name ( @{$self->vaults()} ) {
+      if($self->job_filter() && $job_name ne $self->job_filter()) {
+        # skip this job if it doesn't match the job filter
+        $self->logger()->log( message => 'Skipping Job '.$job_name.' because it does not match the filter', level => 'debug', );
+        next VAULT;
+      }
         try {
             my $Job = Sys::RevoBackup::Job::->new(
                 {
@@ -170,13 +181,11 @@ Run the backups.
 
 Return a list of all vaults (i.e. backup jobs).
 
-=cut
-
 =head1 CONFIGURATION
 
 Place the configuration inside /etc/revobackup/revobackup.conf
 
-    <VTK>
+    <Sys>
         <RevoBackup>
             bank = /srv/backup/bank
             <Rotations>
@@ -198,7 +207,7 @@ Place the configuration inside /etc/revobackup/revobackup.conf
                     </anotherhost>
             </Vaults>
         </RevoBackup>
-    </VTK>
+    </Sys>
 
 =head1 NAME
 

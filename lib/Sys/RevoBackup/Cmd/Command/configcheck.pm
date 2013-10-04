@@ -1,6 +1,6 @@
 package Sys::RevoBackup::Cmd::Command::configcheck;
 {
-  $Sys::RevoBackup::Cmd::Command::configcheck::VERSION = '0.16';
+  $Sys::RevoBackup::Cmd::Command::configcheck::VERSION = '0.24';
 }
 BEGIN {
   $Sys::RevoBackup::Cmd::Command::configcheck::AUTHORITY = 'cpan:TEX';
@@ -204,7 +204,7 @@ sub _check_vault_ssh_connection {
     my $self = shift;
     my $hostname = shift;
 
-    if ( $self->revobackup()->sys()->run_remote_cmd( $hostname, '/bin/true' ) ) {
+    if ( $self->revobackup()->sys()->run_remote_cmd( $hostname, '/bin/true', { Timeout => 10, } ) ) {
         return 1;
     } else {
         return;

@@ -11,7 +11,7 @@ METHODS
 CONFIGURATION
     Place the configuration inside /etc/revobackup/revobackup.conf
 
-        <VTK>
+        <Sys>
             <RevoBackup>
                 bank = /srv/backup/bank
                 <Rotations>
@@ -33,7 +33,7 @@ CONFIGURATION
                         </anotherhost>
                 </Vaults>
             </RevoBackup>
-        </VTK>
+        </Sys>
 
 NAME
     Sys::RevoBackup - Rsync based backup script

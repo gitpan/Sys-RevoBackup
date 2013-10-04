@@ -1,6 +1,6 @@
 package Sys::RevoBackup::Job;
 {
-  $Sys::RevoBackup::Job::VERSION = '0.16';
+  $Sys::RevoBackup::Job::VERSION = '0.24';
 }
 BEGIN {
   $Sys::RevoBackup::Job::AUTHORITY = 'cpan:TEX';

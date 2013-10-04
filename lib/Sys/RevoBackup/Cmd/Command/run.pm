@@ -1,6 +1,6 @@
 package Sys::RevoBackup::Cmd::Command::run;
 {
-  $Sys::RevoBackup::Cmd::Command::run::VERSION = '0.16';
+  $Sys::RevoBackup::Cmd::Command::run::VERSION = '0.24';
 }
 BEGIN {
   $Sys::RevoBackup::Cmd::Command::run::AUTHORITY = 'cpan:TEX';
@@ -31,6 +31,15 @@ has '_pidfile' => (
     'isa'   => 'Linux::Pidfile',
     'lazy'  => 1,
     'builder' => '_init_pidfile',
+);
+
+has 'job' => (
+  'is'    => 'ro',
+  'isa'   => 'Str',
+  'default' => '',
+  'traits'        => [qw(Getopt)],
+  'cmd_aliases'   => 'j',
+  'documentation' => 'Only execute this job',
 );
 # with ...
 # initializers ...
@@ -70,6 +79,10 @@ sub execute {
             'concurrency' => $concurrency,
         }
     );
+
+    if($self->job()) {
+      $Revo->job_filter($self->job());
+    }
 
     my $status = $Revo->run();
 

@@ -11,14 +11,14 @@ use ExtUtils::MakeMaker 6.30;
 my %WriteMakefileArgs = (
   "ABSTRACT" => "an rsync-based backup script",
   "AUTHOR" => "Dominik Schulz <dominik.schulz\@gauner.org>",
-  "BUILD_REQUIRES" => {
-    "Test::More" => 0
-  },
+  "BUILD_REQUIRES" => {},
   "CONFIGURE_REQUIRES" => {
     "ExtUtils::MakeMaker" => "6.30"
   },
   "DISTNAME" => "Sys-RevoBackup",
-  "EXE_FILES" => [],
+  "EXE_FILES" => [
+    "bin/revobackup.pl"
+  ],
   "LICENSE" => "perl",
   "NAME" => "Sys::RevoBackup",
   "PREREQ_PM" => {
@@ -35,7 +35,7 @@ my %WriteMakefileArgs = (
     "Moose" => 0,
     "MooseX::App::Cmd" => 0,
     "MooseX::App::Cmd::Command" => 0,
-    "Sys::Bprsync" => 0,
+    "Sys::Bprsync" => "0.17",
     "Sys::Bprsync::Job" => 0,
     "Sys::Bprsync::Worker" => 0,
     "Sys::FS" => 0,
@@ -50,12 +50,30 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.16",
+  "TEST_REQUIRES" => {
+    "File::Temp" => 0,
+    "Test::MockObject::Universal" => 0,
+    "Test::More" => 0
+  },
+  "VERSION" => "0.24",
   "test" => {
     "TESTS" => "t/*.t"
   }
 );
 
+
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
+  my $tr = delete $WriteMakefileArgs{TEST_REQUIRES};
+  my $br = $WriteMakefileArgs{BUILD_REQUIRES};
+  for my $mod ( keys %$tr ) {
+    if ( exists $br->{$mod} ) {
+      $br->{$mod} = $tr->{$mod} if $tr->{$mod} > $br->{$mod};
+    }
+    else {
+      $br->{$mod} = $tr->{$mod};
+    }
+  }
+}
 
 unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
   my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
