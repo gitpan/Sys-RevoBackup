@@ -1,6 +1,6 @@
 package Sys::RevoBackup::Cmd::Command::cleanup;
 {
-  $Sys::RevoBackup::Cmd::Command::cleanup::VERSION = '0.24';
+  $Sys::RevoBackup::Cmd::Command::cleanup::VERSION = '0.25';
 }
 BEGIN {
   $Sys::RevoBackup::Cmd::Command::cleanup::AUTHORITY = 'cpan:TEX';

@@ -1,6 +1,6 @@
 package Sys::RevoBackup::Cmd::Command::configcheck;
 {
-  $Sys::RevoBackup::Cmd::Command::configcheck::VERSION = '0.24';
+  $Sys::RevoBackup::Cmd::Command::configcheck::VERSION = '0.25';
 }
 BEGIN {
   $Sys::RevoBackup::Cmd::Command::configcheck::AUTHORITY = 'cpan:TEX';
