@@ -1,6 +1,6 @@
 package Sys::RevoBackup::Job;
 {
-  $Sys::RevoBackup::Job::VERSION = '0.25';
+  $Sys::RevoBackup::Job::VERSION = '0.26';
 }
 BEGIN {
   $Sys::RevoBackup::Job::AUTHORITY = 'cpan:TEX';
@@ -68,7 +68,7 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 

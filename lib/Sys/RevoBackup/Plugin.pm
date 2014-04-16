@@ -1,6 +1,6 @@
 package Sys::RevoBackup::Plugin;
 {
-  $Sys::RevoBackup::Plugin::VERSION = '0.25';
+  $Sys::RevoBackup::Plugin::VERSION = '0.26';
 }
 BEGIN {
   $Sys::RevoBackup::Plugin::AUTHORITY = 'cpan:TEX';
@@ -53,7 +53,7 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 

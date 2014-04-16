@@ -1,6 +1,6 @@
 package Sys::RevoBackup::Worker;
 {
-  $Sys::RevoBackup::Worker::VERSION = '0.25';
+  $Sys::RevoBackup::Worker::VERSION = '0.26';
 }
 BEGIN {
   $Sys::RevoBackup::Worker::AUTHORITY = 'cpan:TEX';
@@ -97,6 +97,8 @@ sub _init_job_prefix {
 sub _init {
     my $self = shift;
 
+    return 1 if $self->_init_done();
+
     $self->{'hardlink'}    = 1;
     $self->{'delete'}      = 1;
     $self->{'numericids'}  = 1;
@@ -107,8 +109,9 @@ sub _init {
     # get everything else from the config ...
     # scalars ...
     my $common_config_prefix = $self->parent()->config_prefix() . q{::} . $self->_job_prefix() . q{::} . $self->name() . q{::};
-    foreach my $key (qw(description timeframe excludefrom rsh rshopts compression options bwlimit source nocrossfs)) {
-        if ( !defined( $self->{$key} ) ) {
+    foreach my $key (qw(description timeframe excludefrom rsh rshopts compression options bwlimit source nocrossfs sudo)) {
+        my $predicate = 'has_'.$key;
+        if ( !$self->$predicate() ) {
             my $config_key = $common_config_prefix . $key;
             my $val        = $self->parent()->config()->get($config_key);
             if ( defined($val) ) {
@@ -119,7 +122,9 @@ sub _init {
                 my $msg = 'Recommended configuration key '.$key.' ('.$config_key.') not found!';
                 $self->parent()->logger()->log( message => $msg, level => 'debug', );
             }
-        }
+          } else {
+            $self->parent()->logger()->log( message => 'Key '.$key.' ('.$common_config_prefix.$key.') was already set to '.$self->$key(), level => 'debug', );
+          }
     }
 
     # arrays ...
@@ -138,6 +143,8 @@ sub _init {
         $self->logger()->log( message => 'Setting default value of nocrossfs to 1 because it was not previously defined.', level => 'debug', );
         $self->{'nocrossfs'} = 1;
     }
+
+    $self->_init_done(1);
 
     return 1;
 }
@@ -420,6 +427,8 @@ sub _find_last_working_backup {
 override '_rsync_cmd' => sub {
     my $self = shift;
 
+    $self->_init();
+
     my ( $cmd, $opts, $dirs ) = super();
 
     # Hardlink unchanged files to the files of the last rotation
@@ -428,6 +437,12 @@ override '_rsync_cmd' => sub {
     } else {
         my $dir = $self->dir_last_tree() || '';
         $self->logger()->log( message => 'No last rotation tree for this job found. Can not hardlink. Dir: '.$dir, level => 'warning', );
+    }
+
+    # If we do not have root access to the target host, we can also use
+    # sudo to run rsync on the source host as root.
+    if ( $self->sudo() ) {
+      $opts .= ' --rsync-path="/usr/bin/sudo /usr/bin/rsync"';
     }
 
     # Rsync after 2.6.4 supports multiple link-dest options.
@@ -464,7 +479,7 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 

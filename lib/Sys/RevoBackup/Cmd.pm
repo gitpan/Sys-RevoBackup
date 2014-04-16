@@ -1,6 +1,6 @@
 package Sys::RevoBackup::Cmd;
 {
-  $Sys::RevoBackup::Cmd::VERSION = '0.25';
+  $Sys::RevoBackup::Cmd::VERSION = '0.26';
 }
 BEGIN {
   $Sys::RevoBackup::Cmd::AUTHORITY = 'cpan:TEX';
@@ -38,7 +38,7 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 

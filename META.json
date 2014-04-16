@@ -4,7 +4,7 @@
       "Dominik Schulz <dominik.schulz@gauner.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300039, CPAN::Meta::Converter version 2.132661",
+   "generated_by" : "Dist::Zilla version 5.005, CPAN::Meta::Converter version 2.132830",
    "license" : [
       "perl_5"
    ],
@@ -77,7 +77,7 @@
          "web" : "https://github.com/gittex/Sys-RevoBackup"
       }
    },
-   "version" : "0.25",
+   "version" : "0.26",
    "x_authority" : "cpan:TEX"
 }
 

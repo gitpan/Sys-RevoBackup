@@ -55,37 +55,51 @@ my %WriteMakefileArgs = (
     "Test::MockObject::Universal" => 0,
     "Test::More" => 0
   },
-  "VERSION" => "0.25",
+  "VERSION" => "0.26",
   "test" => {
     "TESTS" => "t/*.t"
   }
 );
 
 
-unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
-  my $tr = delete $WriteMakefileArgs{TEST_REQUIRES};
-  my $br = $WriteMakefileArgs{BUILD_REQUIRES};
-  for my $mod ( keys %$tr ) {
-    if ( exists $br->{$mod} ) {
-      $br->{$mod} = $tr->{$mod} if $tr->{$mod} > $br->{$mod};
-    }
-    else {
-      $br->{$mod} = $tr->{$mod};
-    }
-  }
-}
+my %FallbackPrereqs = (
+  "Config::Yak" => 0,
+  "Config::Yak::OrderedPlugins" => 0,
+  "Config::Yak::RequiredConfig" => 0,
+  "English" => 0,
+  "File::Blarf" => 0,
+  "File::Temp" => 0,
+  "Job::Manager" => 0,
+  "Linux::Pidfile" => 0,
+  "List::MoreUtils" => 0,
+  "Log::Tree" => 0,
+  "Log::Tree::RequiredLogger" => 0,
+  "Moose" => 0,
+  "MooseX::App::Cmd" => 0,
+  "MooseX::App::Cmd::Command" => 0,
+  "Sys::Bprsync" => "0.17",
+  "Sys::Bprsync::Job" => 0,
+  "Sys::Bprsync::Worker" => 0,
+  "Sys::FS" => 0,
+  "Sys::Hostname::FQDN" => 0,
+  "Sys::RotateBackup" => 0,
+  "Sys::Run" => 0,
+  "Test::MockObject::Universal" => 0,
+  "Test::More" => 0,
+  "Try::Tiny" => 0,
+  "Zabbix::Sender" => 0,
+  "feature" => 0,
+  "mro" => 0,
+  "namespace::autoclean" => 0,
+  "strict" => 0,
+  "warnings" => 0
+);
 
-unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
-  my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
-  my $pp = $WriteMakefileArgs{PREREQ_PM};
-  for my $mod ( keys %$br ) {
-    if ( exists $pp->{$mod} ) {
-      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
-    }
-    else {
-      $pp->{$mod} = $br->{$mod};
-    }
-  }
+
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
+  delete $WriteMakefileArgs{TEST_REQUIRES};
+  delete $WriteMakefileArgs{BUILD_REQUIRES};
+  $WriteMakefileArgs{PREREQ_PM} = \%FallbackPrereqs;
 }
 
 delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
