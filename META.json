@@ -68,16 +68,13 @@
    },
    "release_status" : "stable",
    "resources" : {
-      "bugtracker" : {
-         "web" : "https://github.com/gittex/Sys-RevoBackup/issues"
-      },
       "repository" : {
          "type" : "git",
          "url" : "git://github.com/gittex/Sys-RevoBackup.git",
          "web" : "https://github.com/gittex/Sys-RevoBackup"
       }
    },
-   "version" : "0.26",
+   "version" : "0.27",
    "x_authority" : "cpan:TEX"
 }
 

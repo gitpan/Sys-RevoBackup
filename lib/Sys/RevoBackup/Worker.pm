@@ -1,6 +1,6 @@
 package Sys::RevoBackup::Worker;
 {
-  $Sys::RevoBackup::Worker::VERSION = '0.26';
+  $Sys::RevoBackup::Worker::VERSION = '0.27';
 }
 BEGIN {
   $Sys::RevoBackup::Worker::AUTHORITY = 'cpan:TEX';
@@ -368,9 +368,9 @@ sub _upload_summary_log {
         $self->logger()->log( message => 'Log-Upload not supported for local backups. Offending source: ' . $self->source(), level => 'notice', );
         return;
     }
-    if ( $self->source() =~ m/\@/ && $self->source() !~ m/^root\@/ ) {
+    if ( $self->source() =~ m/\@/ && $self->source() !~ m/^root\@/ && !$self->sudo() ) {
         $self->logger()
-          ->log( message => 'Log-Upload not supported for remote backups as non-root user. Offending source: ' . $self->source(), level => 'notice', );
+          ->log( message => 'Log-Upload not supported for remote backups as non-root user w/o sudo. Offending source: ' . $self->source(), level => 'notice', );
         return;
     }
 

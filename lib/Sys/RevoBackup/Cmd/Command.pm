@@ -1,6 +1,6 @@
 package Sys::RevoBackup::Cmd::Command;
 {
-  $Sys::RevoBackup::Cmd::Command::VERSION = '0.26';
+  $Sys::RevoBackup::Cmd::Command::VERSION = '0.27';
 }
 BEGIN {
   $Sys::RevoBackup::Cmd::Command::AUTHORITY = 'cpan:TEX';

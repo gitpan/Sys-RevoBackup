@@ -45,7 +45,6 @@ requires:
   strict: 0
   warnings: 0
 resources:
-  bugtracker: https://github.com/gittex/Sys-RevoBackup/issues
   repository: git://github.com/gittex/Sys-RevoBackup.git
-version: 0.26
+version: 0.27
 x_authority: cpan:TEX

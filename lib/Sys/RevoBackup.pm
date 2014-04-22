@@ -1,6 +1,6 @@
 package Sys::RevoBackup;
 {
-  $Sys::RevoBackup::VERSION = '0.26';
+  $Sys::RevoBackup::VERSION = '0.27';
 }
 BEGIN {
   $Sys::RevoBackup::AUTHORITY = 'cpan:TEX';
@@ -52,7 +52,10 @@ sub _plugin_base_class { return 'Sys::RevoBackup::Plugin'; }
 sub _init_sys {
     my $self = shift;
 
-    my $Sys = Sys::Run::->new( { 'logger' => $self->logger(), } );
+    my $Sys = Sys::Run::->new( {
+      'logger' => $self->logger(),
+      'ssh_hostkey_check' => 0,
+    } );
 
     return $Sys;
 }

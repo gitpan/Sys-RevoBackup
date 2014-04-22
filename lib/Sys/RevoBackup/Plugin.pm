@@ -1,6 +1,6 @@
 package Sys::RevoBackup::Plugin;
 {
-  $Sys::RevoBackup::Plugin::VERSION = '0.26';
+  $Sys::RevoBackup::Plugin::VERSION = '0.27';
 }
 BEGIN {
   $Sys::RevoBackup::Plugin::AUTHORITY = 'cpan:TEX';

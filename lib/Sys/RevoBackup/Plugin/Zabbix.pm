@@ -1,6 +1,6 @@
 package Sys::RevoBackup::Plugin::Zabbix;
 {
-  $Sys::RevoBackup::Plugin::Zabbix::VERSION = '0.26';
+  $Sys::RevoBackup::Plugin::Zabbix::VERSION = '0.27';
 }
 BEGIN {
   $Sys::RevoBackup::Plugin::Zabbix::AUTHORITY = 'cpan:TEX';
